@@ -6,6 +6,7 @@ import sys
 import argparse
 
 parser = argparse.ArgumentParser(prog='PROG')
+parser.add_argument('socket', type=str)
 parser.add_argument('--burstTime', help='Amount of time between bursts', default=0.1, type=float)
 parser.add_argument('--burstAmount', help='Amount of packets to burst', default=10, type=int)
 args = parser.parse_args()
@@ -55,5 +56,5 @@ class Sender(ZmqDealerConnection):
 
 
 zf = ZmqFactory()
-s = Sender(zf, ZmqEndpoint(ZmqEndpointType.connect, 'tcp://10.0.147.96:5555'))
+s = Sender(zf, ZmqEndpoint(ZmqEndpointType.connect, parser.socket))
 reactor.run()
